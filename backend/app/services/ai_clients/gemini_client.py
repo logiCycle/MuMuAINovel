@@ -144,10 +144,10 @@ class GeminiClient:
                 response.raise_for_status()
                 try:
                     async for line in response.aiter_lines():
-                        if line.startswith("data: "):
+                        if line.startswith("data:"):
                             import json
                             try:
-                                data = json.loads(line[6:])
+                                data = json.loads(line[5:].lstrip())
                                 candidates = data.get("candidates", [])
                                 if candidates and len(candidates) > 0:
                                     parts = candidates[0].get("content", {}).get("parts", [])
